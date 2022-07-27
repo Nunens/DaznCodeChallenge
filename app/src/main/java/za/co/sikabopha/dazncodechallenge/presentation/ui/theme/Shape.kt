@@ -1,4 +1,4 @@
-package za.co.sikabopha.dazncodechallenge.ui.theme
+package za.co.sikabopha.dazncodechallenge.presentation.ui.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Shapes

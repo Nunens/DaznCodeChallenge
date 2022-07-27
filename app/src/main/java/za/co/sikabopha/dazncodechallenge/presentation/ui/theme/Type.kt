@@ -1,4 +1,4 @@
-package za.co.sikabopha.dazncodechallenge.ui.theme
+package za.co.sikabopha.dazncodechallenge.presentation.ui.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle

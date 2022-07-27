@@ -1,4 +1,4 @@
-package za.co.sikabopha.dazncodechallenge.ui.screens
+package za.co.sikabopha.dazncodechallenge.presentation.ui.screens
 
 class EventScreen {
     @Composable
