@@ -20,7 +20,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             val viewModel: DaznViewModel = hiltViewModel()
             DAZNCodeChallengeTheme {
-                Greeting("Android")
+                Greeting("Dazn")
             }
         }
     }
@@ -35,6 +35,6 @@ fun Greeting(name: String) {
 @Composable
 fun DefaultPreview() {
     DAZNCodeChallengeTheme {
-        Greeting("Android")
+        Greeting("Dazn")
     }
 }
