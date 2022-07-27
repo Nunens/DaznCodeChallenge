@@ -1,9 +1,9 @@
 package za.co.sikabopha.dazncodechallenge.presentation
 
-import za.co.sikabopha.dazncodechallenge.data.dto.EventDTO
+import za.co.sikabopha.dazncodechallenge.domain.model.Event
 
 data class EventState (
-    val events: List<EventDTO> = emptyList(),
+    val events: List<Event> = emptyList(),
     val error: String = "",
     val selectedIndex:Int = 0,
     val isLoading: Boolean = false

@@ -16,6 +16,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
@@ -23,31 +24,30 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import za.co.sikabopha.dazncodechallenge.data.dto.EventDTO
+import za.co.sikabopha.dazncodechallenge.domain.model.Event
 import za.co.sikabopha.dazncodechallenge.presentation.util.chromePlayer
 
 @Composable
-fun EventList(eventList: List<EventDTO>, context: Context) {
+fun EventList(eventList: List<Event>, context: Context) {
     LazyColumn {
-        itemsIndexed(items = eventList) { index, item ->
+        itemsIndexed(items = eventList) { _, item ->
             EventItem(event = item, context = context)
         }
     }
 }
 
 @Composable
-fun EventItem(event: EventDTO, context: Context) {
+fun EventItem(event: Event, context: Context) {
     Card(
         modifier = Modifier
             .clickable {
                 chromePlayer(event.videoUrl, context)
             }
-            .padding(8.dp, 4.dp)
+            .padding(4.dp)
             .fillMaxWidth()
             .height(110.dp), shape = RoundedCornerShape(8.dp), elevation = 4.dp
     ) {
-        Surface(
-            modifier = Modifier
-        ) {
+        Surface() {
             Row(
                 Modifier
                     .padding(4.dp)
@@ -58,13 +58,14 @@ fun EventItem(event: EventDTO, context: Context) {
                     contentDescription = "article image",
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
-                        .width(100.dp)
-                        .height(100.dp)
+                        .width(110.dp)
+                        .height(110.dp),
+                    alignment = Alignment.Center
                 )
                 Column(
-                    verticalArrangement = Arrangement.Center,
+                    verticalArrangement = Arrangement.SpaceEvenly,
                     modifier = Modifier
-                        .padding(4.dp)
+                        .padding(horizontal = 8.dp)
                         .fillMaxHeight()
                         .weight(0.8f)
                 ) {
@@ -74,13 +75,13 @@ fun EventItem(event: EventDTO, context: Context) {
                         fontWeight = FontWeight.Bold
                     )
                     Text(
-                        text = event.date,
+                        text = event.subtitle,
                         style = MaterialTheme.typography.caption,
                         modifier = Modifier
                             .padding(4.dp)
                     )
                     Text(
-                        text = event.subtitle,
+                        text = event.date,
                         style = MaterialTheme.typography.body1,
                         maxLines = 2,
                         overflow = TextOverflow.Ellipsis

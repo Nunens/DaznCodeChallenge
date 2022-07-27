@@ -1,4 +1,4 @@
-package za.co.sikabopha.dazncodechallenge.data.dto
+package za.co.sikabopha.dazncodechallenge.domain.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
