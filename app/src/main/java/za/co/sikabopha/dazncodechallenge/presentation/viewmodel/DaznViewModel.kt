@@ -5,6 +5,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import za.co.sikabopha.dazncodechallenge.domain.Resource
@@ -14,9 +15,10 @@ import za.co.sikabopha.dazncodechallenge.presentation.ScheduleState
 import za.co.sikabopha.dazncodechallenge.presentation.util.chromePlayer
 import javax.inject.Inject
 
-class DaznViewModel @Inject constructor(
-    private val repository: DaznRepository
-):ViewModel() {
+@HiltViewModel
+class DaznViewModel @Inject constructor():ViewModel() {
+    @Inject
+    lateinit var repository: DaznRepository
     private val _eventState = mutableStateOf(EventState())
     val eventState: State<EventState> = _eventState
 
