@@ -1,15 +1,13 @@
 package za.co.sikabopha.dazncodechallenge.domain.model
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
 import java.util.*
 
-@Parcelize
 data class Schedule(
+    val id: String,
     val title: String,
     val subtitle: String,
     val date: String,
+    val imageUrl: String,
     val timestamp: Date? = null,
     val formattedDate: String? = null,
-    val imageUrl: String
-):Parcelable
+)

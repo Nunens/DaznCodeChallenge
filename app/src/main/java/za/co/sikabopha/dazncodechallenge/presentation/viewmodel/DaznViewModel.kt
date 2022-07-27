@@ -6,6 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import za.co.sikabopha.dazncodechallenge.domain.Resource
@@ -26,7 +27,7 @@ class DaznViewModel @Inject constructor():ViewModel() {
     val scheduleState: State<ScheduleState> = _scheduleState
 
     fun getEvents(){
-        viewModelScope.launch {
+        viewModelScope.async {
             repository.getEvents()
                 .collect{ response ->
                     when(response){
@@ -53,8 +54,8 @@ class DaznViewModel @Inject constructor():ViewModel() {
         }
     }
 
-    fun getSchedules(){
-        viewModelScope.launch {
+    fun getSchedules() {
+        viewModelScope.async {
             repository.getSchedule()
                 .collect{ response ->
                     when(response){

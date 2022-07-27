@@ -29,7 +29,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel.getEvents()
-        viewModel.getSchedules()
+        //viewModel.getSchedules()
         setContent {
             val eventState: State<EventState> = viewModel.eventState
             DAZNCodeChallengeTheme {
