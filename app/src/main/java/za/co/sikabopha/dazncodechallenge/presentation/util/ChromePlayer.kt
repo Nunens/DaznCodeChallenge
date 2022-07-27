@@ -25,6 +25,7 @@ fun chromePlayer(url: String, context: Context) {
         customBuilder.launchUrl(context, Uri.parse(url))
     } else {
         val intent = Intent(Intent.ACTION_VIEW)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         intent.data = Uri.parse(url)
         context.startActivity(intent)
     }
