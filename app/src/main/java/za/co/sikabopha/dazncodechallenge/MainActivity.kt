@@ -20,7 +20,9 @@ class MainActivity : ComponentActivity() {
         setContent {
             val viewModel: DaznViewModel = hiltViewModel()
             DAZNCodeChallengeTheme {
+                viewModel.getEvents()
                 Greeting("Dazn")
+                viewModel.getSchedules()
             }
         }
     }

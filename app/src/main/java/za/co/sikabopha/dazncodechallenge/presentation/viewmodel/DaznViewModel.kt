@@ -63,7 +63,7 @@ class DaznViewModel @Inject constructor(
                         }
                         is Resource.Success -> {
                             response.data?.let {
-                                println("Events = $it")
+                                println("Schedules = $it")
                                 _scheduleState.value = scheduleState.value.copy(
                                     schedules = it
                                 )
