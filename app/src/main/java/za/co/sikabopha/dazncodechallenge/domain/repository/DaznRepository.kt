@@ -6,7 +6,7 @@ import za.co.sikabopha.dazncodechallenge.data.dto.Schedule
 import za.co.sikabopha.dazncodechallenge.domain.Resource
 
 interface DaznRepository {
-    suspend fun getEvents(): Flow<Resource<out Any>>
+    suspend fun getEvents(): Flow<Resource<List<Event>>>
 
-    suspend fun getSchedule():Flow<Resource<out Any>>
+    suspend fun getSchedule():Flow<Resource<List<Schedule>>>
 }
