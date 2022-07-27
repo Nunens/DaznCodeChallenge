@@ -10,20 +10,17 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import za.co.sikabopha.dazncodechallenge.presentation.ui.theme.DAZNCodeChallengeTheme
+import za.co.sikabopha.dazncodechallenge.presentation.viewmodel.DaznViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            val viewModel: DaznViewModel = hiltViewModel()
             DAZNCodeChallengeTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
-                ) {
-                    Greeting("Android")
-                }
+                Greeting("Android")
             }
         }
     }
