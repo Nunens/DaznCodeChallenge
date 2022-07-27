@@ -4,6 +4,7 @@
     package="za.co.sikabopha.dazncodechallenge">
 
     <application
+        android:name=".DaznApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
