@@ -5,24 +5,17 @@ import za.co.sikabopha.dazncodechallenge.data.dto.EventDTO
 import za.co.sikabopha.dazncodechallenge.data.dto.Schedule
 import za.co.sikabopha.dazncodechallenge.data.dto.ScheduleDTO
 
-fun EventDTO.toEvent():Event{
-    return Event(
-        title = title,
-        subtitle = subtitle,
-        date = date,
-        imageUrl = imageUrl,
-        videoUrl = videoUrl,
-        formattedDate = "",
-        timestamp = null,
-    )
+fun List<EventDTO>.toEvents(resp: List<EventDTO>):List<Event>{
+    var convertedResp: List<Event>? = ArrayList()
+    resp.forEach {
+        convertedResp!!.plus(Event(it.title, it.subtitle, it.date, null, null, it.imageUrl, it.videoUrl))
+    }
+    return convertedResp!!
 }
-fun ScheduleDTO.toSchedule():Schedule{
-    return Schedule(
-        title = title,
-        subtitle = subtitle,
-        date = date,
-        imageUrl = imageUrl,
-        formattedDate = "",
-        timestamp = null,
-    )
+fun List<ScheduleDTO>.toSchedules(resp: List<ScheduleDTO>):List<Schedule>{
+    var convertedResp: List<Schedule>? = ArrayList()
+    resp.forEach {
+        convertedResp!!.plus(Schedule(it.title, it.subtitle, it.date, null, null, it.imageUrl))
+    }
+    return convertedResp!!
 }

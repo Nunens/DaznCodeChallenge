@@ -3,11 +3,8 @@ package za.co.sikabopha.dazncodechallenge.data.repository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
-import za.co.sikabopha.dazncodechallenge.data.dto.Event
-import za.co.sikabopha.dazncodechallenge.data.dto.EventDTO
-import za.co.sikabopha.dazncodechallenge.data.dto.Schedule
-import za.co.sikabopha.dazncodechallenge.data.mapper.toEvent
-import za.co.sikabopha.dazncodechallenge.data.mapper.toSchedule
+import za.co.sikabopha.dazncodechallenge.data.mapper.toEvents
+import za.co.sikabopha.dazncodechallenge.data.mapper.toSchedules
 import za.co.sikabopha.dazncodechallenge.data.remote.DaznApi
 import za.co.sikabopha.dazncodechallenge.domain.Resource
 import za.co.sikabopha.dazncodechallenge.domain.repository.DaznRepository
@@ -15,11 +12,11 @@ import java.io.IOException
 import javax.inject.Inject
 
 class DaznRepositoryImpl @Inject constructor(private val api: DaznApi): DaznRepository {
-    override suspend fun getEvents(): Flow<Resource<Event>> {
+    override suspend fun getEvents(): Flow<Resource<out Any>> {
         return flow {
             try {
                 val resp = api.getEvents()
-                emit(Resource.Success(data = resp.toEvent()))
+                emit(Resource.Success(data = resp.toEvents(resp)))
             } catch (e: HttpException) {
                 emit(Resource.Loading(isLoading = false))
                 emit(Resource.Error(message = "${e.message}"))
@@ -33,11 +30,11 @@ class DaznRepositoryImpl @Inject constructor(private val api: DaznApi): DaznRepo
         }
     }
 
-    override suspend fun getSchedule(): Flow<Resource<Schedule>> {
+    override suspend fun getSchedule(): Flow<Resource<out Any>> {
         return flow {
             try {
                 val resp = api.getSchedule()
-                emit(Resource.Success(data = resp.toSchedule()))
+                emit(Resource.Success(data = resp.toSchedules(resp)))
             } catch (e: HttpException) {
                 emit(Resource.Loading(isLoading = false))
                 emit(Resource.Error(message = "${e.message}"))
