@@ -1,6 +1,7 @@
 package za.co.sikabopha.dazncodechallenge.presentation.ui.components
 
 import android.content.Context
+import android.os.Build
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -16,8 +17,34 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import kotlinx.coroutines.runBlocking
 import za.co.sikabopha.dazncodechallenge.domain.model.Event
 import za.co.sikabopha.dazncodechallenge.presentation.util.chromePlayer
+import java.lang.Exception
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+
+fun formatToDate(date: String): Any {
+    return try {
+        var newDate = date.replace('T',' ').substring(0,16)
+        println("New Date $newDate")
+        val firstApiFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+        val resp = LocalDate.parse(newDate , firstApiFormat)
+        println("New Resp $resp")
+        resp
+    } catch (e: Exception) {
+        date.replace('T',' ').substring(0,16)
+    }
+}
+
+fun formatToTime(date: String): String {
+    val pattern: String = "HH:mm"
+    val simpleDateFormat: SimpleDateFormat = SimpleDateFormat(pattern)
+    var formattedDate: String = simpleDateFormat.format(date)
+    println(formattedDate)
+    return formattedDate
+}
 
 @Composable
 fun EventItem(event: Event, context: Context) {
@@ -64,7 +91,7 @@ fun EventItem(event: Event, context: Context) {
                             .padding(4.dp)
                     )
                     Text(
-                        text = event.date,
+                        text = formatToDate(event.date).toString(),
                         style = MaterialTheme.typography.body1,
                         maxLines = 2,
                         overflow = TextOverflow.Ellipsis
