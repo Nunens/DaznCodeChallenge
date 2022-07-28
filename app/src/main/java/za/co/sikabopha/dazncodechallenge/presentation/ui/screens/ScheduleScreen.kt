@@ -18,7 +18,7 @@ fun ScheduleScreen(vm: DaznViewModel, context: Context) {
 
 @Composable
 fun ScheduleList(scheduleList: List<Schedule>, context: Context) {
-    LazyColumn(modifier = Modifier.padding(bottom = 55.dp)) {
+    LazyColumn(modifier = Modifier.padding(bottom = 60.dp)) {
         itemsIndexed(items = scheduleList) { _, item ->
             ScheduleItem(schedule = item, context = context)
         }

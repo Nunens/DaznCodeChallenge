@@ -18,7 +18,7 @@ fun EventScreen(vm: DaznViewModel, context: Context) {
 
 @Composable
 fun EventList(eventList: List<Event>, context: Context) {
-    LazyColumn(modifier = Modifier.padding(bottom = 55.dp)) {
+    LazyColumn(modifier = Modifier.padding(bottom = 60.dp)) {
         itemsIndexed(items = eventList) { _, item ->
             EventItem(event = item, context = context)
         }
