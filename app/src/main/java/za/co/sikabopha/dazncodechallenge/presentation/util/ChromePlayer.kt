@@ -12,7 +12,7 @@ import za.co.sikabopha.dazncodechallenge.R
 fun chromePlayer(url: String, context: Context) {
     val builder = CustomTabsIntent.Builder()
     val params = CustomTabColorSchemeParams.Builder()
-    params.setToolbarColor(ContextCompat.getColor(context, R.color.purple_200))
+    params.setToolbarColor(ContextCompat.getColor(context, R.color.white))
     builder.setDefaultColorSchemeParams(params.build())
     builder.setShowTitle(true)
     builder.setShareState(CustomTabsIntent.SHARE_STATE_ON)
@@ -20,8 +20,8 @@ fun chromePlayer(url: String, context: Context) {
     val customBuilder = builder.build()
 
     if (context.isPackageInstalled("com.android.chrome")) {
-
         customBuilder.intent.setPackage("com.android.chrome")
+        customBuilder.intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         customBuilder.launchUrl(context, Uri.parse(url))
     } else {
         val intent = Intent(Intent.ACTION_VIEW)
