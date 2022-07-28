@@ -59,7 +59,7 @@ fun ScheduleItem(schedule: Schedule, context: Context) {
                             .padding(4.dp)
                     )
                     Text(
-                        text = schedule.date,
+                        text = formatToDate(schedule.date).toString(),
                         style = MaterialTheme.typography.body1,
                         maxLines = 2,
                         overflow = TextOverflow.Ellipsis

@@ -27,23 +27,11 @@ import java.time.format.DateTimeFormatter
 
 fun formatToDate(date: String): Any {
     return try {
-        var newDate = date.replace('T',' ').substring(0,16)
-        println("New Date $newDate")
-        val firstApiFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-        val resp = LocalDate.parse(newDate , firstApiFormat)
-        println("New Resp $resp")
-        resp
+        var newDate = date.replace('T', ' ').substring(0, 16)
+        newDate
     } catch (e: Exception) {
-        date.replace('T',' ').substring(0,16)
+        //date.replace('T', ' ').substring(0, 19)
     }
-}
-
-fun formatToTime(date: String): String {
-    val pattern: String = "HH:mm"
-    val simpleDateFormat: SimpleDateFormat = SimpleDateFormat(pattern)
-    var formattedDate: String = simpleDateFormat.format(date)
-    println(formattedDate)
-    return formattedDate
 }
 
 @Composable
