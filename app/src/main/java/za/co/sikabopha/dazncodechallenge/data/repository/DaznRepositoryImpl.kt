@@ -17,11 +17,13 @@ class DaznRepositoryImpl @Inject constructor(private val api: DaznApi): DaznRepo
     override suspend fun getEvents(): Flow<Resource<List<Event>>> {
         return flow {
             try {
+                emit(Resource.Loading(isLoading = true))
                 val resp = api.getEvents()
                 val list: List<Event> = resp.map {
                     Event(it.title, it.subtitle, it.date, it.imageUrl, it.videoUrl, java.util.Date(), it.date)
                 }
                 emit(Resource.Success(data = list))
+                emit(Resource.Loading(isLoading = false))
             } catch (e: HttpException) {
                 emit(Resource.Loading(isLoading = false))
                 emit(Resource.Error(message = "${e.message}"))
@@ -38,11 +40,13 @@ class DaznRepositoryImpl @Inject constructor(private val api: DaznApi): DaznRepo
     override suspend fun getSchedule(): Flow<Resource<List<Schedule>>> {
         return flow {
             try {
+                emit(Resource.Loading(isLoading = true))
                 val resp = api.getSchedule()
                 val list: List<Schedule> = resp.map {
                     Schedule(it.id, it.title, it.subtitle, it.date, it.imageUrl, java.util.Date(), it.date)
                 }
                 emit(Resource.Success(data = list))
+                emit(Resource.Loading(isLoading = false))
             } catch (e: HttpException) {
                 emit(Resource.Loading(isLoading = false))
                 emit(Resource.Error(message = "${e.message}"))
