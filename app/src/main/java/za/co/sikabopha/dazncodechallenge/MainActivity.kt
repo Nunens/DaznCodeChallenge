@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -40,6 +41,8 @@ class MainActivity : ComponentActivity() {
             if (viewModel.eventState.value.isLoading && !viewModel.eventState.value.firstLaunch) {
                 ProgressView()
                 viewModel.eventState.value.firstLaunch = true
+            } else if(viewModel.eventState.value.error.isNotEmpty()){
+                ErrorView(error = viewModel.eventState.value.error)
             } else {
                 MainScreenView(viewModel, applicationContext)
             }
@@ -52,7 +55,7 @@ class MainActivity : ComponentActivity() {
             job.cancel()
     }
 
-    fun CoroutineScope.launchPeriodicAsync(
+    private fun CoroutineScope.launchPeriodicAsync(
         repeatMillis: Long,
         action: () -> Unit
     ) = this.async {
@@ -91,6 +94,19 @@ fun ProgressView() {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         CircularProgressIndicator()
+    }
+}
+
+@Composable
+fun ErrorView(error: String) {
+    Column(
+        Modifier
+            .fillMaxWidth(1F)
+            .fillMaxHeight(1F),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(text = error)
     }
 }
 
