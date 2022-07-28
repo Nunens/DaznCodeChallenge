@@ -7,8 +7,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 import za.co.sikabopha.dazncodechallenge.domain.Resource
 import za.co.sikabopha.dazncodechallenge.domain.repository.DaznRepository
 import za.co.sikabopha.dazncodechallenge.presentation.EventState

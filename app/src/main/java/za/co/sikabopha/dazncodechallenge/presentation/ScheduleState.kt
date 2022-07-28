@@ -1,6 +1,5 @@
 package za.co.sikabopha.dazncodechallenge.presentation
 
-import za.co.sikabopha.dazncodechallenge.data.dto.ScheduleDTO
 import za.co.sikabopha.dazncodechallenge.domain.model.Schedule
 
 data class ScheduleState (
