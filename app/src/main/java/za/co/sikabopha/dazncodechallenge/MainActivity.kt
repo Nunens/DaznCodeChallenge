@@ -40,11 +40,12 @@ class MainActivity : ComponentActivity() {
         setContent {
             if (viewModel.eventState.value.isLoading && !viewModel.eventState.value.firstLaunch) {
                 ProgressView()
-            } else if(viewModel.eventState.value.error.isNotEmpty()){
+            } else if (viewModel.eventState.value.error.isNotEmpty()) {
                 ErrorView(error = viewModel.eventState.value.error)
             } else {
                 MainScreenView(viewModel, applicationContext)
-                viewModel.setLaunchState(true)
+                if (!viewModel.eventState.value.firstLaunch)
+                    viewModel.setLaunchState(true)
             }
         }
     }

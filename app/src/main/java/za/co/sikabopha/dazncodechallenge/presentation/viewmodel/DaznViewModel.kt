@@ -44,7 +44,6 @@ class DaznViewModel @Inject constructor():ViewModel() {
                         }
                         is Resource.Success -> {
                             response.data?.let {
-                                //println("Events = $it")
                                 _eventState.value = eventState.value.copy(
                                     events = it
                                 )
