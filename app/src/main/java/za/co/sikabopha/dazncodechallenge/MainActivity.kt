@@ -16,29 +16,73 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.*
+import kotlinx.coroutines.channels.ticker
 import za.co.sikabopha.dazncodechallenge.presentation.navigation.NavigationGraph
 import za.co.sikabopha.dazncodechallenge.presentation.ui.components.BottomNavigationBar
 import za.co.sikabopha.dazncodechallenge.presentation.viewmodel.DaznViewModel
+import java.time.LocalDateTime
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     private val viewModel: DaznViewModel by viewModels()
+    private lateinit var job: Deferred<Unit>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.getEvents()
-        viewModel.getSchedules()
+
+        getData()
+        job = CoroutineScope(Dispatchers.IO).launchPeriodicAsync(10000) {
+            getData()
+        }
+
         setContent {
-            if (viewModel.eventState.value.isLoading){
+            if (viewModel.eventState.value.isLoading && !viewModel.eventState.value.firstLaunch) {
                 ProgressView()
+                viewModel.eventState.value.firstLaunch = true
             } else {
                 MainScreenView(viewModel, applicationContext)
             }
         }
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if (job.isActive)
+            job.cancel()
+    }
+
+    fun CoroutineScope.launchPeriodicAsync(
+        repeatMillis: Long,
+        action: () -> Unit
+    ) = this.async {
+        if (repeatMillis > 0) {
+            while (isActive) {
+                action()
+                delay(repeatMillis)
+            }
+        } else {
+            action()
+        }
+    }
+
+    private fun getData() {
+        viewModel.getEvents()
+        viewModel.getSchedules()
+    }
+
+    suspend fun startTimer() {
+        val tickerChannel = ticker(delayMillis = 10_000, initialDelayMillis = 0)
+
+        repeat(100) {
+            tickerChannel.receive()
+            getData()
+        }
+    }
 }
 
 @Composable
-fun ProgressView(){
+fun ProgressView() {
     Column(
         Modifier
             .fillMaxWidth(1F)
@@ -51,7 +95,7 @@ fun ProgressView(){
 }
 
 @Composable
-fun MainScreenView(vm: DaznViewModel, context: Context){
+fun MainScreenView(vm: DaznViewModel, context: Context) {
     val navController = rememberNavController()
     Scaffold(
         bottomBar = { BottomNavigationBar(navController = navController) }

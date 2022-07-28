@@ -7,11 +7,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
+import kotlinx.coroutines.channels.ticker
 import za.co.sikabopha.dazncodechallenge.domain.Resource
 import za.co.sikabopha.dazncodechallenge.domain.repository.DaznRepository
 import za.co.sikabopha.dazncodechallenge.presentation.EventState
 import za.co.sikabopha.dazncodechallenge.presentation.ScheduleState
 import za.co.sikabopha.dazncodechallenge.presentation.util.chromePlayer
+import java.time.LocalDateTime
 import javax.inject.Inject
 
 @HiltViewModel
