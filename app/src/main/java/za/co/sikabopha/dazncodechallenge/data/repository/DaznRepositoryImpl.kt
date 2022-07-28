@@ -2,13 +2,13 @@ package za.co.sikabopha.dazncodechallenge.data.repository
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.runBlocking
 import retrofit2.HttpException
 import za.co.sikabopha.dazncodechallenge.data.remote.DaznApi
 import za.co.sikabopha.dazncodechallenge.domain.Resource
 import za.co.sikabopha.dazncodechallenge.domain.model.Event
 import za.co.sikabopha.dazncodechallenge.domain.model.Schedule
 import za.co.sikabopha.dazncodechallenge.domain.repository.DaznRepository
-import za.co.sikabopha.dazncodechallenge.domain.util.formatToDate
 import za.co.sikabopha.dazncodechallenge.presentation.ui.components.ScheduleList
 import java.io.IOException
 import java.sql.Date
@@ -19,15 +19,10 @@ class DaznRepositoryImpl @Inject constructor(private val api: DaznApi): DaznRepo
     override suspend fun getEvents(): Flow<Resource<List<Event>>> {
         return flow {
             try {
-                val resp = api.getEvents()/*.sortedBy {
-                    it.title
-                }*/
+                val resp = api.getEvents()
                 val list: List<Event> = resp.map {
-                    Event(it.title, it.subtitle, it.date, it.imageUrl, it.videoUrl, null, null)
+                    Event(it.title, it.subtitle, it.date, it.imageUrl, it.videoUrl, java.util.Date(), it.date)
                 }
-                val newList = list.map { it ?: formatToDate(it.date) }
-                println("NEW LIST: $newList")
-                //println("Response[Event] = $list")
                 emit(Resource.Success(data = list))
             } catch (e: HttpException) {
                 emit(Resource.Loading(isLoading = false))
@@ -49,8 +44,7 @@ class DaznRepositoryImpl @Inject constructor(private val api: DaznApi): DaznRepo
                 val list: List<Schedule> = resp.map {
                     Schedule(it.id, it.title, it.subtitle, it.date, it.imageUrl, Date.valueOf(it.date), formatToDate(it.date))
                 }
-                println("Response[Schedule] = $list")
-                emit(Resource.Success(data = resp))*/
+                emit(Resource.Success(data = list))*/
             } catch (e: HttpException) {
                 emit(Resource.Loading(isLoading = false))
                 emit(Resource.Error(message = "${e.message}"))
@@ -62,5 +56,24 @@ class DaznRepositoryImpl @Inject constructor(private val api: DaznApi): DaznRepo
                 emit(Resource.Error(message = "${e.message}"))
             }
         }
+    }
+
+    suspend fun formatToDate(date: String): String {
+        var formattedDate: String = ""
+        runBlocking {
+            val pattern: String = "yyyy-MM-dd"
+            val simpleDateFormat: SimpleDateFormat = SimpleDateFormat(pattern)
+            formattedDate = simpleDateFormat.format(date)
+            println(formattedDate)
+        }
+        return formattedDate
+    }
+
+    fun formatToTime(date: String): String {
+        val pattern: String = "HH:mm"
+        val simpleDateFormat: SimpleDateFormat = SimpleDateFormat(pattern)
+        var formattedDate: String = simpleDateFormat.format(date)
+        println(formattedDate)
+        return formattedDate
     }
 }

@@ -8,6 +8,6 @@ data class Event(
     val date: String,
     val imageUrl: String,
     val videoUrl: String,
-    val timestamp: Date? = null,
-    val formattedDate: String? = null,
+    val timestamp: Date?,
+    val formattedDate: String?,
 )

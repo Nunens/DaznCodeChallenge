@@ -38,7 +38,7 @@ class DaznViewModel @Inject constructor():ViewModel() {
                         }
                         is Resource.Success -> {
                             response.data?.let {
-                                println("Events = $it")
+                                //println("Events = $it")
                                 _eventState.value = eventState.value.copy(
                                     events = it
                                 )
@@ -66,7 +66,7 @@ class DaznViewModel @Inject constructor():ViewModel() {
                         }
                         is Resource.Success -> {
                             response.data?.let {
-                                println("Schedules = $it")
+                                //println("Schedules = $it")
                                 _scheduleState.value = scheduleState.value.copy(
                                     schedules = it
                                 )
