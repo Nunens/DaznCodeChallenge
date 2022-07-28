@@ -33,18 +33,18 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         getData()
-        job = CoroutineScope(Dispatchers.IO).launchPeriodicAsync(10000) {
+        job = CoroutineScope(Dispatchers.IO).launchPeriodicAsync(30000) {
             getData()
         }
 
         setContent {
             if (viewModel.eventState.value.isLoading && !viewModel.eventState.value.firstLaunch) {
                 ProgressView()
-                viewModel.eventState.value.firstLaunch = true
             } else if(viewModel.eventState.value.error.isNotEmpty()){
                 ErrorView(error = viewModel.eventState.value.error)
             } else {
                 MainScreenView(viewModel, applicationContext)
+                viewModel.setLaunchState(true)
             }
         }
     }

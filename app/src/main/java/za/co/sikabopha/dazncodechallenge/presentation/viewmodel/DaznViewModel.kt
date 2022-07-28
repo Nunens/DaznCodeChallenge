@@ -26,6 +26,12 @@ class DaznViewModel @Inject constructor():ViewModel() {
     private val _scheduleState = mutableStateOf(ScheduleState())
     val scheduleState: State<ScheduleState> = _scheduleState
 
+    fun setLaunchState(value: Boolean){
+        _eventState.value = eventState.value.copy(
+            firstLaunch = value
+        )
+    }
+
     fun getEvents(){
         viewModelScope.async {
             repository.getEvents()
