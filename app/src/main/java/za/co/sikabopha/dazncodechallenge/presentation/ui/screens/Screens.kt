@@ -1,5 +1,6 @@
 package za.co.sikabopha.dazncodechallenge.presentation.ui.screens
 
+import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -9,47 +10,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.pointer.PointerIconDefaults.Text
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import za.co.sikabopha.dazncodechallenge.R
+import za.co.sikabopha.dazncodechallenge.domain.model.Event
+import za.co.sikabopha.dazncodechallenge.domain.model.Schedule
+import za.co.sikabopha.dazncodechallenge.presentation.ui.components.EventList
+import za.co.sikabopha.dazncodechallenge.presentation.ui.components.ScheduleList
 
 @Composable
-fun EventScreen() {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(colorResource(id = R.color.purple_200))
-            .wrapContentSize(Alignment.Center)
-    ) {
-        Text(
-            text = "Home Screen",
-            fontWeight = FontWeight.Bold,
-            color = Color.White,
-            modifier = Modifier.align(Alignment.CenterHorizontally),
-            textAlign = TextAlign.Center,
-            fontSize = 20.sp
-        )
-    }
+fun EventScreen(eventList: List<Event>, context: Context) {
+    EventList(eventList = eventList, context = context)
 }
 
 @Composable
-fun ScheduleScreen() {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(colorResource(id = R.color.purple_200))
-            .wrapContentSize(Alignment.Center)
-    ) {
-        Text(
-            text = "Home Screen",
-            fontWeight = FontWeight.Bold,
-            color = Color.White,
-            modifier = Modifier.align(Alignment.CenterHorizontally),
-            textAlign = TextAlign.Center,
-            fontSize = 20.sp
-        )
-    }
+fun ScheduleScreen(scheduleList: List<Schedule>, context: Context) {
+    ScheduleList(scheduleList = scheduleList, context = context)
 }
