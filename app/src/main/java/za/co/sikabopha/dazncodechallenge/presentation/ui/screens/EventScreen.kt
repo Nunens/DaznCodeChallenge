@@ -19,7 +19,14 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import za.co.sikabopha.dazncodechallenge.domain.model.Event
+import za.co.sikabopha.dazncodechallenge.presentation.ui.components.EventItem
 import za.co.sikabopha.dazncodechallenge.presentation.util.chromePlayer
+import za.co.sikabopha.dazncodechallenge.presentation.viewmodel.DaznViewModel
+
+@Composable
+fun EventScreen(vm: DaznViewModel, context: Context) {
+    EventList(eventList = vm.eventState.value.events, context = context)
+}
 
 @Composable
 fun EventList(eventList: List<Event>, context: Context) {
@@ -30,60 +37,3 @@ fun EventList(eventList: List<Event>, context: Context) {
     }
 }
 
-@Composable
-fun EventItem(event: Event, context: Context) {
-    Card(
-        modifier = Modifier
-            .clickable {
-                chromePlayer(event.videoUrl, context)
-            }
-            .padding(4.dp)
-            .fillMaxWidth()
-            .height(110.dp), shape = RoundedCornerShape(8.dp), elevation = 4.dp
-    ) {
-        Surface() {
-            Row(
-                Modifier
-                    .padding(4.dp)
-                    .fillMaxSize()
-            ) {
-                AsyncImage(
-                    model = event.imageUrl,
-                    contentDescription = "article image",
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier
-                        .width(110.dp)
-                        .height(110.dp),
-                    alignment = Alignment.Center
-                )
-                Column(
-                    verticalArrangement = Arrangement.SpaceEvenly,
-                    modifier = Modifier
-                        .padding(horizontal = 8.dp)
-                        .fillMaxHeight()
-                        .weight(0.8f)
-                ) {
-                    Text(
-                        text = event.title,
-                        style = MaterialTheme.typography.subtitle1,
-                        fontWeight = FontWeight.Bold
-                    )
-                    Text(
-                        text = event.subtitle,
-                        style = MaterialTheme.typography.caption,
-                        modifier = Modifier
-                            .padding(4.dp)
-                    )
-                    Text(
-                        text = event.date,
-                        style = MaterialTheme.typography.body1,
-                        maxLines = 2,
-                        overflow = TextOverflow.Ellipsis
-                    )
-
-                }
-            }
-        }
-    }
-
-}
