@@ -22,7 +22,6 @@ import kotlinx.coroutines.channels.ticker
 import za.co.sikabopha.dazncodechallenge.presentation.navigation.NavigationGraph
 import za.co.sikabopha.dazncodechallenge.presentation.ui.components.BottomNavigationBar
 import za.co.sikabopha.dazncodechallenge.presentation.viewmodel.DaznViewModel
-import java.time.LocalDateTime
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {

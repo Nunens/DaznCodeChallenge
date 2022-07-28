@@ -7,17 +7,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
-import kotlinx.coroutines.channels.ticker
 import za.co.sikabopha.dazncodechallenge.domain.Resource
 import za.co.sikabopha.dazncodechallenge.domain.repository.DaznRepository
 import za.co.sikabopha.dazncodechallenge.presentation.EventState
 import za.co.sikabopha.dazncodechallenge.presentation.ScheduleState
 import za.co.sikabopha.dazncodechallenge.presentation.util.chromePlayer
-import java.time.LocalDateTime
 import javax.inject.Inject
 
 @HiltViewModel
-class DaznViewModel @Inject constructor():ViewModel() {
+class DaznViewModel @Inject constructor() : ViewModel() {
     @Inject
     lateinit var repository: DaznRepository
     private val _eventState = mutableStateOf(EventState())
@@ -26,17 +24,17 @@ class DaznViewModel @Inject constructor():ViewModel() {
     private val _scheduleState = mutableStateOf(ScheduleState())
     val scheduleState: State<ScheduleState> = _scheduleState
 
-    fun setLaunchState(value: Boolean){
+    fun setLaunchState(value: Boolean) {
         _eventState.value = eventState.value.copy(
             firstLaunch = value
         )
     }
 
-    fun getEvents(){
+    fun getEvents() {
         viewModelScope.async {
             repository.getEvents()
-                .collect{ response ->
-                    when(response){
+                .collect { response ->
+                    when (response) {
                         is Resource.Loading -> {
                             _eventState.value = eventState.value.copy(
                                 isLoading = response.isLoading
@@ -62,8 +60,8 @@ class DaznViewModel @Inject constructor():ViewModel() {
     fun getSchedules() {
         viewModelScope.async {
             repository.getSchedule()
-                .collect{ response ->
-                    when(response){
+                .collect { response ->
+                    when (response) {
                         is Resource.Loading -> {
                             _scheduleState.value = scheduleState.value.copy(
                                 isLoading = response.isLoading
@@ -87,7 +85,7 @@ class DaznViewModel @Inject constructor():ViewModel() {
         }
     }
 
-    fun playVideo(url:String,context: Context){
+    fun playVideo(url: String, context: Context) {
         chromePlayer(url = url, context = context)
     }
 }

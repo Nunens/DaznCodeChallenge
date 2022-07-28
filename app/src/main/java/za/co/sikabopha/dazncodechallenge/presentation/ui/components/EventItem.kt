@@ -1,7 +1,6 @@
 package za.co.sikabopha.dazncodechallenge.presentation.ui.components
 
 import android.content.Context
-import android.os.Build
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -17,13 +16,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import kotlinx.coroutines.runBlocking
 import za.co.sikabopha.dazncodechallenge.domain.model.Event
 import za.co.sikabopha.dazncodechallenge.presentation.util.chromePlayer
-import java.lang.Exception
-import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 fun formatToDate(date: String): Any {
     return try {

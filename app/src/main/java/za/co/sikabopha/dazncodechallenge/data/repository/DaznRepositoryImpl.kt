@@ -1,7 +1,5 @@
 package za.co.sikabopha.dazncodechallenge.data.repository
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.runBlocking
@@ -13,22 +11,24 @@ import za.co.sikabopha.dazncodechallenge.domain.model.Schedule
 import za.co.sikabopha.dazncodechallenge.domain.repository.DaznRepository
 import java.io.IOException
 import java.text.SimpleDateFormat
-import java.time.Clock
-import java.time.ZoneId
-import java.time.ZoneOffset
-import java.time.ZonedDateTime
-import java.time.format.DateTimeFormatter
-import java.util.*
 import javax.inject.Inject
 
-class DaznRepositoryImpl @Inject constructor(private val api: DaznApi): DaznRepository {
+class DaznRepositoryImpl @Inject constructor(private val api: DaznApi) : DaznRepository {
     override suspend fun getEvents(): Flow<Resource<List<Event>>> {
         return flow {
             try {
                 emit(Resource.Loading(isLoading = true))
                 val resp = api.getEvents()
                 val list: List<Event> = resp.map {
-                    Event(it.title, it.subtitle, it.date, it.imageUrl, it.videoUrl, java.util.Date(), it.date)
+                    Event(
+                        it.title,
+                        it.subtitle,
+                        it.date,
+                        it.imageUrl,
+                        it.videoUrl,
+                        java.util.Date(),
+                        it.date
+                    )
                 }.sortedBy { it.date }
                 emit(Resource.Success(data = list))
                 emit(Resource.Loading(isLoading = false))
@@ -51,7 +51,15 @@ class DaznRepositoryImpl @Inject constructor(private val api: DaznApi): DaznRepo
                 emit(Resource.Loading(isLoading = true))
                 val resp = api.getSchedule()
                 val list: List<Schedule> = resp.map {
-                    Schedule(it.id, it.title, it.subtitle, it.date, it.imageUrl, java.util.Date(), it.date)
+                    Schedule(
+                        it.id,
+                        it.title,
+                        it.subtitle,
+                        it.date,
+                        it.imageUrl,
+                        java.util.Date(),
+                        it.date
+                    )
                 }.sortedBy { it.date }
                 emit(Resource.Success(data = list))
                 emit(Resource.Loading(isLoading = false))

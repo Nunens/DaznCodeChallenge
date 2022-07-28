@@ -8,5 +8,5 @@ import za.co.sikabopha.dazncodechallenge.domain.model.Schedule
 interface DaznRepository {
     suspend fun getEvents(): Flow<Resource<List<Event>>>
 
-    suspend fun getSchedule():Flow<Resource<List<Schedule>>>
+    suspend fun getSchedule(): Flow<Resource<List<Schedule>>>
 }

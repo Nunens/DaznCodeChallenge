@@ -17,7 +17,7 @@ object DaznModule {
 
     @Provides
     @Singleton
-    fun provideDaznApi():DaznApi{
+    fun provideDaznApi(): DaznApi {
         return Retrofit.Builder()
             .baseUrl(DaznApi.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
@@ -27,7 +27,7 @@ object DaznModule {
 
     @Provides
     @Singleton
-    fun provideDaznRepository(api: DaznApi):DaznRepository{
+    fun provideDaznRepository(api: DaznApi): DaznRepository {
         return DaznRepositoryImpl(api)
     }
 }
