@@ -1,12 +1,6 @@
-package za.co.sikabopha.dazncodechallenge.presentation.ui.components
+package za.co.sikabopha.dazncodechallenge.presentation.ui.screens
 
 import android.content.Context
-import android.icu.number.Scale
-import android.view.Gravity.FILL
-import android.widget.GridLayout.FILL
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -23,26 +17,21 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import za.co.sikabopha.dazncodechallenge.data.dto.EventDTO
-import za.co.sikabopha.dazncodechallenge.domain.model.Event
-import za.co.sikabopha.dazncodechallenge.presentation.util.chromePlayer
+import za.co.sikabopha.dazncodechallenge.domain.model.Schedule
 
 @Composable
-fun EventList(eventList: List<Event>, context: Context) {
+fun ScheduleList(scheduleList: List<Schedule>, context: Context) {
     LazyColumn {
-        itemsIndexed(items = eventList) { _, item ->
-            EventItem(event = item, context = context)
+        itemsIndexed(items = scheduleList) { _, item ->
+            ScheduleItem(schedule = item, context = context)
         }
     }
 }
 
 @Composable
-fun EventItem(event: Event, context: Context) {
+fun ScheduleItem(schedule: Schedule, context: Context) {
     Card(
         modifier = Modifier
-            .clickable {
-                chromePlayer(event.videoUrl, context)
-            }
             .padding(4.dp)
             .fillMaxWidth()
             .height(110.dp), shape = RoundedCornerShape(8.dp), elevation = 4.dp
@@ -54,7 +43,7 @@ fun EventItem(event: Event, context: Context) {
                     .fillMaxSize()
             ) {
                 AsyncImage(
-                    model = event.imageUrl,
+                    model = schedule.imageUrl,
                     contentDescription = "article image",
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
@@ -70,18 +59,18 @@ fun EventItem(event: Event, context: Context) {
                         .weight(0.8f)
                 ) {
                     Text(
-                        text = event.title,
+                        text = schedule.title,
                         style = MaterialTheme.typography.subtitle1,
                         fontWeight = FontWeight.Bold
                     )
                     Text(
-                        text = event.subtitle,
+                        text = schedule.subtitle,
                         style = MaterialTheme.typography.caption,
                         modifier = Modifier
                             .padding(4.dp)
                     )
                     Text(
-                        text = event.date,
+                        text = schedule.date,
                         style = MaterialTheme.typography.body1,
                         maxLines = 2,
                         overflow = TextOverflow.Ellipsis

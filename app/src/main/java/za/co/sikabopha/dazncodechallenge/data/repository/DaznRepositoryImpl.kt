@@ -9,9 +9,7 @@ import za.co.sikabopha.dazncodechallenge.domain.Resource
 import za.co.sikabopha.dazncodechallenge.domain.model.Event
 import za.co.sikabopha.dazncodechallenge.domain.model.Schedule
 import za.co.sikabopha.dazncodechallenge.domain.repository.DaznRepository
-import za.co.sikabopha.dazncodechallenge.presentation.ui.components.ScheduleList
 import java.io.IOException
-import java.sql.Date
 import java.text.SimpleDateFormat
 import javax.inject.Inject
 
@@ -40,11 +38,11 @@ class DaznRepositoryImpl @Inject constructor(private val api: DaznApi): DaznRepo
     override suspend fun getSchedule(): Flow<Resource<List<Schedule>>> {
         return flow {
             try {
-                /*val resp = api.getSchedule()
+                val resp = api.getSchedule()
                 val list: List<Schedule> = resp.map {
-                    Schedule(it.id, it.title, it.subtitle, it.date, it.imageUrl, Date.valueOf(it.date), formatToDate(it.date))
+                    Schedule(it.id, it.title, it.subtitle, it.date, it.imageUrl, java.util.Date(), it.date)
                 }
-                emit(Resource.Success(data = list))*/
+                emit(Resource.Success(data = list))
             } catch (e: HttpException) {
                 emit(Resource.Loading(isLoading = false))
                 emit(Resource.Error(message = "${e.message}"))

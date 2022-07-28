@@ -1,26 +1,16 @@
 package za.co.sikabopha.dazncodechallenge
 
+import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
-import dagger.hilt.EntryPoint
-import dagger.hilt.InstallIn
+import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.components.SingletonComponent
-import za.co.sikabopha.dazncodechallenge.presentation.EventState
-import za.co.sikabopha.dazncodechallenge.presentation.ui.components.EventList
-import za.co.sikabopha.dazncodechallenge.presentation.ui.theme.DAZNCodeChallengeTheme
+import za.co.sikabopha.dazncodechallenge.presentation.navigation.NavigationGraph
+import za.co.sikabopha.dazncodechallenge.presentation.ui.components.BottomNavigationBar
 import za.co.sikabopha.dazncodechallenge.presentation.viewmodel.DaznViewModel
 
 @AndroidEntryPoint
@@ -29,25 +19,20 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel.getEvents()
-        //viewModel.getSchedules()
+        viewModel.getSchedules()
         setContent {
-            val eventState: State<EventState> = viewModel.eventState
-            DAZNCodeChallengeTheme {
-                EventList(eventList = eventState.value.events, context = applicationContext)
-            }
+            MainScreenView(viewModel, applicationContext)
         }
     }
 }
 
 @Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
+fun MainScreenView(vm: DaznViewModel, context: Context){
+    val navController = rememberNavController()
+    Scaffold(
+        bottomBar = { BottomNavigationBar(navController = navController) }
+    ) {
 
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    DAZNCodeChallengeTheme {
-        Greeting("Dazn")
+        NavigationGraph(navController = navController, vm, context)
     }
 }
