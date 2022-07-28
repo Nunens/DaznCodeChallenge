@@ -39,7 +39,7 @@ fun ProgressView(){
         Modifier
             .fillMaxWidth(1F)
             .fillMaxHeight(1F),
-        verticalArrangement = Arrangement.SpaceEvenly,
+        verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         CircularProgressIndicator()
